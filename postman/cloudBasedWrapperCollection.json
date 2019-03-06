@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "0f010a9f-9d54-462a-8cf0-e2308895f39f",
+		"name": "awsWrapper",
+		"description": "# AWS Dynamic Wrappoer Service\n\n## About\nThis collection contains informationa and params for the aws wrapper service. This service takes params\nand fetches html for a site. Then transforms the site html to be more compatable with the IDX BRoker \nwrapper system.\n\nNot all sites will work. Some sites may still need some CSS or JS to fucntion as expected.\n\n\n## Use\n\nCall thge aws endpoint and pass needed params.\n\nParams accepted:\n\n* site - web page url to use for a dynamic wrapper (required)\n* target - what to kind of target to use in adding IDX start and stop tags  (required)\n* id - the ID targeted\n* class- the class targeted\n* el - the element name targeted\n* title - what to change the title to\n\nWhile id, class, and el are not required with out them no strt and stop tags will be added.\n\nTitle is not required, but the title will be whatever the site page used.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "aws wrapper by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site&target=id&id&title",
+					"protocol": "https",
+					"host": [
+						"zl6t6xxpc2",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"wrappers",
+						"wrapper"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": null,
+							"description": "web page url to use for a dynamic wrapper (required)"
+						},
+						{
+							"key": "target",
+							"value": "id",
+							"description": "what kind of target to use in adding IDX start and stop tags  (required)"
+						},
+						{
+							"key": "id",
+							"value": null,
+							"description": "the ID targeted"
+						},
+						{
+							"key": "title",
+							"value": null,
+							"description": "what to change the title to"
+						}
+					]
+				},
+				"description": "Pass params to create dynamic wrapper html for an IDX account. Add IDX start and stop tags by ID"
+			},
+			"response": []
+		},
+		{
+			"name": "aws wrapper by class",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site&target=class&class&title",
+					"protocol": "https",
+					"host": [
+						"zl6t6xxpc2",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"wrappers",
+						"wrapper"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": null,
+							"description": "web page url to use for a dynamic wrapper (required)"
+						},
+						{
+							"key": "target",
+							"value": "class",
+							"description": "what kind of target to use in adding IDX start and stop tags  (required)"
+						},
+						{
+							"key": "class",
+							"value": null,
+							"description": "the class targeted"
+						},
+						{
+							"key": "title",
+							"value": null,
+							"description": "what to change the title to"
+						}
+					]
+				},
+				"description": "Pass parms to create dynamic wrapper html for an IDX account by class."
+			},
+			"response": []
+		},
+		{
+			"name": "aws wrapper by element",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=&target=element&el=&title=",
+					"protocol": "https",
+					"host": [
+						"zl6t6xxpc2",
+						"execute-api",
+						"us-west-2",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"wrappers",
+						"wrapper"
+					],
+					"query": [
+						{
+							"key": "site",
+							"value": "",
+							"description": "web page url to use for a dynamic wrapper (required)"
+						},
+						{
+							"key": "target",
+							"value": "element",
+							"description": "what kind of target to use in adding IDX start and stop tags  (required)"
+						},
+						{
+							"key": "el",
+							"value": "",
+							"description": "the element tag targeted"
+						},
+						{
+							"key": "title",
+							"value": "",
+							"description": "what to change the title to"
+						}
+					]
+				},
+				"description": "Pass parms to create dynamic wrapper html for an IDX account by element"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "17bd3b44-b296-4b67-9c90-93a660d69b5f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "77b9964e-993a-4470-9423-7a5851411ea1",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
