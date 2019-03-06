@@ -39,3 +39,5 @@ Accepted parameters and descriptions
 Example Use: https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper?site=https://www.jsutaskrandy.com/&target=class&class=listings-container&title=randy
 
 This endpoint with the required and optional params is then added to the IDX Broker account at the global, category, or page level dynamic wrapper.
+
+A postman collection is included in this repo to aid in discovery.
