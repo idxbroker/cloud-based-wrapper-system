@@ -10,6 +10,16 @@ The system uses API Gateway and Lambda functions to retieve the source html for 
 
 Page html is never stored in AWS instead each retrieval and transofrmation occurs upon request.
 
+Process and transofrmations:
+* Fetch page html
+* Make relative path links to absolute path links.
+* Remove H1 tag
+* Remove <base /> tag from the head section
+* Add IDX div start and stop tags in id or class passed in params
+* Change title tag if passed as a param
+* Find '$' and replace with 'JQuery' inside script tags
+* Return transformed html
+
 ## Required
 
 * An enabled IDX Broker account.
