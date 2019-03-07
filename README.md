@@ -10,7 +10,7 @@ The system uses API Gateway and Lambda functions to retieve the source html for 
 
 Page html is never stored in AWS instead each retrieval and transofrmation occurs upon request.
 
-Process and transofrmations:
+Process and transofrmations in Lambda:
 * Fetch page html
 * Make relative path links to absolute path links.
 * Remove H1 tag
@@ -59,3 +59,4 @@ Known non compatabile sites include:
 * Sites with main content in a form tag
 * Sites with relative urls in required extrnal resources
 * Sites with relative urls in the CSS
+* Sites with a load time beyond 15 seconds
