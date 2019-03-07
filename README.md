@@ -1,4 +1,4 @@
-# IDX Dynamic Wrapper AWS Layer
+# IDX Dynamic Wrapper via AWS
 
 ## About
 
