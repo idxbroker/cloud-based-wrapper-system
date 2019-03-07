@@ -41,3 +41,11 @@ Example Use: https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wra
 This endpoint with the required and optional params is then added to the IDX Broker account at the global, category, or page level dynamic wrapper.
 
 A postman collection is included in this repo to aid in discovery.
+
+Known non compatabile sites include:
+* JS based sites(like WiX)
+* Sites that use url params to indicate the page to be loaded
+* Sites using frame sets
+* Sites with main content in a form tag
+* Sites with relative urls in required extrnal resources
+* Sites with relative urls in the CSS
