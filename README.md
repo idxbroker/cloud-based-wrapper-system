@@ -53,7 +53,7 @@ This endpoint with the required and optional params is then added to the IDX Bro
 A postman collection is included in this repo to aid in discovery.
 
 Known non compatabile sites include:
-* JS based sites(like WiX)
+* Entirely JS based sites
 * Sites that use url params to indicate the page to be loaded
 * Sites using frame sets
 * Sites with main content in a form tag
