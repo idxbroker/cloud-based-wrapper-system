@@ -2,15 +2,15 @@
 
 ## About
 
-Currently the IDX Broker dynamic wrapper system as several limitations. This is wrapper system using amazon web services to overcome some of thse challenges. This cloud based wrapper system attemps to slove this issue.
+Currently the IDX Broker dynamic wrapper system has several limitations. This is a wrapper system using amazon web services to overcome some of these challenges. This cloud based wrapper system attempts to solve this issue.
 
 This will not work 100% universally.
 
-The system uses API Gateway and Lambda functions to retieve the source html for a page, transfor the the source code and return this new html source to be stored in the IDX Broker wrapper systtem.
+The system uses API Gateway and Lambda functions to retrieve the source html for a page. It will then transform the source code and return this new html source to be stored in the IDX Broker wrapper system.
 
 Page html is never stored in AWS instead each retrieval and transofrmation occurs upon request.
 
-Process and transofrmations in Lambda:
+Process and transformations in Lambda:
 * Fetch page html
 * Make relative path links to absolute path links.
 * Remove H1 tag
@@ -24,12 +24,12 @@ Process and transofrmations in Lambda:
 
 * An enabled IDX Broker account.
 * A publicly available web page with valid html structure. An opening and closing head and body tag nested in an opening and closing html tag
-* A target element. Will accept tag name, id, or class (single classs only)
+* A target element. Will accept tag name, id, or class (single classes only)
 * A target element value
 
 ## Use
 
-This system is avalable at the following endpoint:
+This system is available at the following endpoint:
 
 https://zl6t6xxpc2.execute-api.us-west-2.amazonaws.com/wrappers/wrapper
 
@@ -52,11 +52,11 @@ This endpoint with the required and optional params is then added to the IDX Bro
 
 A postman collection is included in this repo to aid in discovery.
 
-Known non compatabile sites include:
+Known non compatibile sites include:
 * Entirely JS based sites
 * Sites that use url params to indicate the page to be loaded
 * Sites using frame sets
 * Sites with main content in a form tag
-* Sites with relative urls in required extrnal resources
+* Sites with relative urls in required external resources
 * Sites with relative urls in the CSS
 * Sites with a load time beyond 15 seconds
