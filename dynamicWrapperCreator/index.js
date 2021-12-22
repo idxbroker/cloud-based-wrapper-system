@@ -52,9 +52,9 @@ exports.handler = async (event) => {
     $('title').html(titleTag)
     $('base').remove()
 
-    if (h1Ignore !== 'y') {
+    if (h1Ignore == 'y') {
       $('H1').remove()
-    }
+    } 
 
     switch (target) {
       case 'id':
