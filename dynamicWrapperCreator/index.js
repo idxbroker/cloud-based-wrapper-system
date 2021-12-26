@@ -1,9 +1,9 @@
-const axios = require('axios')
-const cheerio = require('cheerio')
-const absolutify = require('absolutify')
-const converter = require('rel-to-abs')
-const extractDomain = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/gim
-const idxtags = '<div id="idxStart"></div><div id="idxStop"></div>'
+const axios = require('axios');
+const cheerio = require('cheerio');
+const absolutify = require('absolutify');
+const converter = require('rel-to-abs');
+const extractDomain = /^(?:https?:\/\/)?(?:[^@\/\n]+@)?(?:www\.)?([^:\/?\n]+)/gim;
+const idxtags = '<div id="idxStart"></div><div id="idxStop"></div>';
 
 function getSite (url) {
   return axios.get(url)
@@ -26,8 +26,30 @@ function addStartStopTags ($, pageTarget) {
   }
 }
 
+/**
+ * Form tags that surround our content will break functionality, especially with things like the Advanced Search. 
+ * This function will remove the form element containing our target.
+ * @param {HTMLElement} element, the element we want to check for a parent form tag.
+ */
+function removeEnclosingFormTag($, element) {
+  let containingForm = $(element).closest('form');
+
+  if (containingForm) {
+    let newParentDiv = $('<div id="idxFormReplacementDiv" class="form"></form>');
+    $(containingForm).parent().prepend(newParentDiv);
+    $(newParentDiv).append(containingForm.children());  
+    console.log('movement done?');
+    return true;
+  }
+
+  console.log('form not found...');
+
+  return false;
+
+}
+
 exports.handler = async (event) => {
-  const params = event.params.querystring
+  const params = event.queryStringParameters;
   let url = params.site
   const titleTag = params.title
   const target = params.target
@@ -39,7 +61,7 @@ exports.handler = async (event) => {
     // handle for possible trailing slash in source url
     if (url.substr(-1) === '/') {
       url = url.substr(0, url.length - 1)
-    }
+    } 
 
     // pass to absolutify to make all links aboslute paths and to cheerio for further transformation
     let relativeLinksAbsolute = absolutify(response.data, domain[0])
@@ -56,19 +78,27 @@ exports.handler = async (event) => {
       $('H1').remove()
     } 
 
+    // Find the target element.
+    let targetElement;
     switch (target) {
       case 'id':
-        addStartStopTags($, `#${params.id}`)
+        targetElement = $(`#${params.id}`);
         break
       case 'element':
-        addStartStopTags($, params.el)
+        targetElement = $(params.el);
         break
       case 'class':
-        addStartStopTags($, `.${params.class}`)
+        targetElement = $(`.${params.class}`);
         break
       default:
-        $('html').text('ERROR: no target was provided')
+        targetElement = null;
+        $('html').text('ERROR: no target was provided');
         break
+    }
+
+    // Insert start and stop tags
+    if (targetElement) {
+      addStartStopTags($, targetElement);
     }
 
     // replace dollar signs with 'jQuery' to avoid IDX jQuery conflicts
@@ -76,8 +106,13 @@ exports.handler = async (event) => {
       $(this).html().replace(/\$/g, 'jQuery')
     })
 
+    // See if there's a form tag enclosing our target element --- if so, create a new div and move everything outside the form
+    if (removeEnclosingFormTag($, targetElement)) {
+      console.log('Enclosing form tag detected. Moving children...');
+    }
+
     // return new wrapper html
-    return $.html()
+    return {body: $.html()}
   } else {
     const errorMessage = {
       error: 'Did not recieve a 200 http code',
