@@ -54,6 +54,7 @@ exports.handler = async (event) => {
   const titleTag = params.title
   const target = params.target
   const h1Ignore = params.h1Ignore
+  const removeConflicts = params.removeConflicts;
   const domain = url.match(extractDomain)
   const response = await getSite(url)
 
@@ -77,6 +78,20 @@ exports.handler = async (event) => {
     if (h1Ignore == 'y') {
       $('H1').remove()
     } 
+
+    // Try to remove any known script conflicts if removeConflicts was set
+    if (removeConflicts == 'y') {
+        let iHomeRegex = /idxhome\.com$/;
+        let iHomeFileRegex = /bundle\.js/;
+        $('script').each(function(){
+            let script = $(this);
+            let scriptUrl = new URL(script.attr('src'), url);
+            if (iHomeRegex.test(scriptUrl.host)
+            && iHomeFileRegex.test(scriptUrl.pathname)) {
+              script.remove();
+            }
+        });
+    }
 
     // Find the target element.
     let targetElement;
