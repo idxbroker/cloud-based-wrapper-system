@@ -142,6 +142,11 @@ exports.handler = async (event) => {
       case 'class':
         targetElement = $(`.${params.class}`);
         break
+      case 'selector':
+        // TargetValue will be used later for all target types
+        // Currently, just the first matching element found will be used...
+        targetElement = $(decodeURIComponent(params.targetValue))?.[0];
+        break;
       default:
         targetElement = null;
         $('html').text('ERROR: no target was provided');
