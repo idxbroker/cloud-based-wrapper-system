@@ -37,12 +37,9 @@ function removeEnclosingFormTag($, element) {
   if (containingForm) {
     let newParentDiv = $('<div id="idxFormReplacementDiv" class="form"></form>');
     $(containingForm).parent().prepend(newParentDiv);
-    $(newParentDiv).append(containingForm.children());  
-    console.log('movement done?');
+    $(newParentDiv).append(containingForm.children());
     return true;
   }
-
-  console.log('Form not found.');
 
   return false;
 
@@ -60,6 +57,7 @@ function getAbsoluteUrl(path, base) {
  * @param {*} $ 
  * @param {*} tagName 
  * @param {*} attribute 
+ * @param {String} base, the base domain to use if the value on the element is relative. 
  */
 function turnElementAttributeAbsolute($, tagName, attribute, base) {
     $(tagName).each(function() {
@@ -83,6 +81,7 @@ exports.handler = async (event) => {
   const target = params.target
   const h1Ignore = params.h1Ignore
   const removeConflicts = params.removeConflicts;
+  const removeScripts = params.removeScripts;
   const domain = url.match(extractDomain)
   const response = await getSite(url)
 
@@ -128,6 +127,11 @@ exports.handler = async (event) => {
               script.remove();
             }
         });
+    }
+
+    // Scripts originating from the client site can sometimes cause conflicts; if removeScripts is set this will remove all of them including inline script tags.
+    if (removeScripts == 'y') {
+      $('script').remove();
     }
 
     // Find the target element.
